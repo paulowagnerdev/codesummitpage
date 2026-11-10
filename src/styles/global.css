@@ -1,0 +1,188 @@
+/* ==========================================================
+   Code Summit — tokens e base
+   Conceito: a subida. Mapa topográfico, névoa de altitude,
+   granito e um laranja de sinalização (bandeira do cume).
+   ========================================================== */
+
+:root {
+    /* Cor */
+    --mist: #eef2f3;          /* fundo claro — névoa */
+    --mist-2: #e2e8ea;
+    --granite: #0f1b24;       /* tinta e seções escuras */
+    --granite-2: #172632;
+    --granite-3: #20323f;
+    --slate: #5b6b76;         /* texto secundário sobre claro */
+    --slate-light: #8fa0aa;   /* texto secundário sobre escuro */
+    --glacier: #9fd3e6;       /* curvas de nível, detalhes */
+    --signal: #ff4f17;        /* ação principal, o cume */
+    --signal-hover: #ff6a38;
+    --line: rgba(15, 27, 36, .12);
+    --line-dark: rgba(238, 242, 243, .12);
+
+    /* Tipografia — uma família, duas larguras */
+    --font: "Archivo Variable", "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --wide: 118%;
+    --normal: 100%;
+
+    --fs-xs: .8125rem;
+    --fs-sm: .9375rem;
+    --fs-base: 1.0625rem;
+    --fs-lg: 1.25rem;
+    --fs-xl: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+    --fs-2xl: clamp(2rem, 1.4rem + 2.4vw, 3.5rem);
+    --fs-3xl: clamp(2.5rem, 1.5rem + 4vw, 5.5rem);
+    --fs-hero: clamp(2.4rem, 1rem + 4.4vw, 5.5rem);
+
+    /* Layout */
+    --container: 82rem;
+    --gutter: clamp(1.25rem, .5rem + 3vw, 3rem);
+    --section-y: clamp(6rem, 4rem + 8vw, 11rem);
+    --header-h: 4.5rem;
+
+    --radius: 1.25rem;
+    --ease: cubic-bezier(.22, 1, .36, 1);        /* expo-out: fluido, sem “quique” */
+    --ease-in-out: cubic-bezier(.65, 0, .35, 1);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--header-h);
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    background: var(--mist);
+    color: var(--granite);
+    font-family: var(--font);
+    font-stretch: var(--normal);
+    font-size: var(--fs-base);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+img,
+svg,
+canvas {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+
+h1, h2, h3 {
+    font-stretch: var(--wide);
+    font-weight: 600;
+    line-height: 1.04;
+    letter-spacing: -.025em;
+    text-wrap: balance;
+}
+
+p {
+    text-wrap: pretty;
+}
+
+::selection {
+    background: var(--signal);
+    color: var(--granite);
+}
+
+:focus-visible {
+    outline: 2px solid var(--signal);
+    outline-offset: 3px;
+    border-radius: .375rem;
+}
+
+.container {
+    width: 100%;
+    max-width: calc(var(--container) + var(--gutter) * 2);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+}
+
+.visually-hidden {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+.skip-link {
+    position: fixed;
+    top: .75rem;
+    left: .75rem;
+    z-index: 200;
+    padding: .75rem 1rem;
+    background: var(--signal);
+    color: var(--granite);
+    font-weight: 600;
+    border-radius: .5rem;
+    transform: translateY(-200%);
+    transition: transform .3s var(--ease);
+}
+
+.skip-link:focus {
+    transform: none;
+}
+
+/* Revelação ao entrar na tela (controlada por <Reveal>) */
+.reveal {
+    opacity: 0;
+    transform: translateY(1.75rem);
+    transition:
+        opacity 1s var(--ease) var(--delay, 0s),
+        transform 1s var(--ease) var(--delay, 0s);
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        transition-delay: 0s !important;
+        animation-delay: 0s !important;
+    }
+
+    .reveal {
+        opacity: 1;
+        transform: none;
+    }
+}

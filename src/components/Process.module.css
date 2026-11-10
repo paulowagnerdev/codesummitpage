@@ -1,0 +1,179 @@
+.section {
+    position: relative;
+    background: var(--granite);
+    color: var(--mist);
+    padding-block: var(--section-y);
+}
+
+/* Desktop: a seção fica “presa” enquanto a rolagem conduz a subida */
+.pinned {
+    height: 320vh;
+    padding-block: 0;
+}
+
+.pinned .sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 4rem;
+    align-items: center;
+}
+
+.title {
+    font-size: var(--fs-2xl);
+    max-width: 12ch;
+}
+
+.intro {
+    margin-top: 1.25rem;
+    max-width: 38ch;
+    color: var(--slate-light);
+}
+
+.steps {
+    margin-top: clamp(2rem, 1rem + 3vh, 3.5rem);
+    border-top: 1px solid var(--line-dark);
+}
+
+.step {
+    display: grid;
+    grid-template-columns: 2.75rem minmax(0, 1fr);
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--line-dark);
+    opacity: .35;
+    transition: opacity .6s var(--ease);
+}
+
+.reached {
+    opacity: .6;
+}
+
+.current {
+    opacity: 1;
+}
+
+.num {
+    padding-top: .2rem;
+    font-size: var(--fs-sm);
+    font-variant-numeric: tabular-nums;
+    color: var(--slate-light);
+    transition: color .6s var(--ease);
+}
+
+.current .num {
+    color: var(--signal);
+}
+
+.stepTitle {
+    font-size: var(--fs-lg);
+    font-weight: 600;
+}
+
+/* Texto da etapa abre só na etapa atual (no desktop) */
+.stepBody {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .7s var(--ease);
+}
+
+.stepBody p {
+    overflow: hidden;
+    min-height: 0;
+    max-width: 40ch;
+    font-size: var(--fs-sm);
+    color: var(--slate-light);
+}
+
+.current .stepBody,
+.section:not(.pinned) .stepBody {
+    grid-template-rows: 1fr;
+}
+
+.current .stepBody p,
+.section:not(.pinned) .stepBody p {
+    padding-top: .5rem;
+}
+
+.section:not(.pinned) .step {
+    opacity: 1;
+    padding: 1.5rem 0;
+}
+
+/* ---------- Ilustração ---------- */
+
+.visual svg {
+    width: 100%;
+    height: auto;
+    max-height: 72vh;
+    overflow: visible;
+}
+
+.ridge {
+    fill: var(--granite-2);
+}
+
+.echo,
+.trail {
+    fill: none;
+    stroke: var(--glacier);
+    stroke-width: 1;
+}
+
+.trail {
+    stroke-opacity: .25;
+    stroke-dasharray: 3 7;
+}
+
+.climb {
+    fill: none;
+    stroke: var(--signal);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+}
+
+.stop circle {
+    fill: var(--granite);
+    stroke: var(--slate-light);
+    stroke-width: 1.5;
+    transition: fill .5s var(--ease), stroke .5s var(--ease);
+}
+
+.stop text {
+    font-family: var(--font);
+    font-size: 15px;
+    fill: var(--slate-light);
+    transition: fill .5s var(--ease);
+}
+
+.stopOn circle {
+    fill: var(--signal);
+    stroke: var(--signal);
+}
+
+.stopOn text {
+    fill: var(--mist);
+}
+
+.climber circle {
+    fill: var(--mist);
+}
+
+.climber .halo {
+    fill: rgba(238, 242, 243, .12);
+}
+
+@media (max-width: 900px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+}

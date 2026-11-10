@@ -1,0 +1,194 @@
+.section {
+    padding-block: 0 var(--section-y);
+}
+
+.head {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: 2rem 4rem;
+    align-items: end;
+    padding-top: clamp(3rem, 2rem + 3vw, 5rem);
+    border-top: 1px solid var(--line);
+}
+
+.title {
+    font-size: var(--fs-3xl);
+    max-width: 14ch;
+}
+
+.intro {
+    max-width: 40ch;
+    color: var(--slate);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: 4rem;
+    align-items: start;
+    margin-top: clamp(3rem, 2rem + 4vw, 6rem);
+}
+
+.list {
+    border-top: 1px solid var(--line);
+}
+
+.item {
+    border-bottom: 1px solid var(--line);
+}
+
+.trigger {
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 2rem;
+    gap: .25rem 1.5rem;
+    padding: 1.6rem 0;
+    text-align: left;
+    border-radius: .5rem;
+}
+
+.name {
+    font-size: var(--fs-xl);
+    font-weight: 600;
+    font-stretch: 112%;
+    letter-spacing: -.02em;
+    line-height: 1.15;
+    transition: transform .6s var(--ease), color .4s var(--ease);
+}
+
+.short {
+    grid-column: 1;
+    font-size: var(--fs-sm);
+    font-weight: 400;
+    font-stretch: 100%;
+    letter-spacing: 0;
+    color: var(--slate);
+    transition: opacity .4s var(--ease);
+}
+
+.trigger:hover .name {
+    transform: translateX(.5rem);
+}
+
+.plus {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: center;
+    position: relative;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    transition: background-color .4s var(--ease), border-color .4s var(--ease), transform .6s var(--ease);
+}
+
+.plus::before,
+.plus::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: .7rem;
+    height: 1.5px;
+    background: currentColor;
+    transform: translate(-50%, -50%);
+    transition: transform .6s var(--ease);
+}
+
+.plus::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.open .plus {
+    background: var(--granite);
+    border-color: var(--granite);
+    color: var(--mist);
+    transform: rotate(180deg);
+}
+
+.open .plus::after {
+    transform: translate(-50%, -50%) rotate(0deg);
+}
+
+/* Painel do acordeão: anima a altura com grid-template-rows */
+.panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .7s var(--ease);
+}
+
+.open .panel {
+    grid-template-rows: 1fr;
+}
+
+.panelInner {
+    overflow: hidden;
+    min-height: 0;
+}
+
+.panelInner p {
+    max-width: 48ch;
+    padding-bottom: 1.75rem;
+    color: var(--slate);
+    opacity: 0;
+    transform: translateY(.5rem);
+    transition: opacity .5s var(--ease), transform .7s var(--ease);
+}
+
+.open .panelInner p {
+    opacity: 1;
+    transform: none;
+    transition-delay: .15s;
+}
+
+/* Visual no acordeão: só no mobile */
+.inlineVisual {
+    display: none;
+}
+
+/* Palco fixo com a ilustração do serviço ativo */
+.stage {
+    position: sticky;
+    top: calc(var(--header-h) + 2rem);
+}
+
+.stageInner {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: var(--radius);
+    background: var(--granite);
+    color: var(--glacier);
+    overflow: hidden;
+}
+
+.caption {
+    position: absolute;
+    left: 1.5rem;
+    bottom: 1.25rem;
+    font-size: var(--fs-xs);
+    color: var(--slate-light);
+}
+
+@media (max-width: 900px) {
+    .head,
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stage {
+        display: none;
+    }
+
+    .inlineVisual {
+        display: block;
+        aspect-ratio: 16 / 10;
+        max-height: 20rem;
+        width: 100%;
+        margin-bottom: 1.75rem;
+        border-radius: var(--radius);
+        background: var(--granite);
+        color: var(--glacier);
+        overflow: hidden;
+    }
+}

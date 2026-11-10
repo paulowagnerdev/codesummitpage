@@ -1,0 +1,144 @@
+.svg {
+    width: 100%;
+    height: 100%;
+    color: var(--glacier);
+    animation: fade .6s var(--ease);
+}
+
+.draw {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: draw 1.6s var(--ease) forwards;
+    animation-delay: var(--d, 0s);
+}
+
+.check {
+    stroke: var(--signal);
+    stroke-width: 3;
+    animation-delay: .9s;
+}
+
+.dot {
+    fill: currentColor;
+    opacity: 0;
+    animation: fade .4s var(--ease) forwards;
+    animation-delay: calc(.4s + var(--d, 0s));
+}
+
+.block {
+    fill: rgba(159, 211, 230, .12);
+    stroke: rgba(159, 211, 230, .35);
+    transform-box: fill-box;
+    transform-origin: left center;
+    transform: scaleX(0);
+    animation: grow .9s var(--ease) forwards;
+    animation-delay: var(--d, 0s);
+}
+
+.accent {
+    fill: var(--signal);
+    stroke: none;
+}
+
+.soft {
+    fill: rgba(159, 211, 230, .08);
+    stroke: rgba(159, 211, 230, .3);
+}
+
+.softFill {
+    fill: rgba(159, 211, 230, .4);
+}
+
+.accentFill {
+    fill: var(--signal);
+}
+
+.thin {
+    fill: none;
+    stroke: rgba(159, 211, 230, .45);
+    stroke-width: 3;
+    stroke-linecap: round;
+}
+
+.feed {
+    animation: scroll 6s cubic-bezier(.65, 0, .35, 1) infinite;
+}
+
+.cell {
+    fill: rgba(159, 211, 230, .06);
+    stroke: rgba(159, 211, 230, .25);
+    animation: cell 3.2s var(--ease) infinite;
+    animation-delay: var(--d, 0s);
+}
+
+.flow {
+    fill: none;
+    stroke: var(--signal);
+    stroke-width: 2;
+    stroke-dasharray: 4 6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: .7;
+}
+
+.runner,
+.packet {
+    fill: var(--signal);
+}
+
+.node {
+    fill: var(--granite);
+    stroke: currentColor;
+    stroke-width: 1.5;
+    opacity: 0;
+    animation: fade .6s .5s var(--ease) forwards;
+}
+
+.hubRing {
+    fill: none;
+    stroke: var(--signal);
+    stroke-opacity: .4;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: ring 2.8s var(--ease) infinite;
+}
+
+.pulse {
+    fill: none;
+    stroke: var(--signal);
+    stroke-width: 2;
+    stroke-linejoin: round;
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: beat 2.6s linear infinite;
+}
+
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes grow { to { transform: scaleX(1); } }
+
+@keyframes scroll {
+    0%, 15% { transform: translateY(0); }
+    45%, 60% { transform: translateY(-116px); }
+    90%, 100% { transform: translateY(0); }
+}
+
+@keyframes cell {
+    0%, 100% { fill: rgba(159, 211, 230, .06); }
+    20% { fill: rgba(159, 211, 230, .32); }
+}
+
+@keyframes ring {
+    0% { transform: scale(.7); opacity: 1; }
+    100% { transform: scale(1.6); opacity: 0; }
+}
+
+@keyframes beat {
+    0% { stroke-dashoffset: 400; }
+    60%, 100% { stroke-dashoffset: -400; }
+}

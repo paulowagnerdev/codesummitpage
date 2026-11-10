@@ -1,0 +1,142 @@
+.section {
+    position: relative;
+    background: var(--granite);
+    color: var(--mist);
+    padding-block: var(--section-y) clamp(3rem, 2rem + 3vw, 5rem);
+    overflow: hidden;
+}
+
+.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+}
+
+.title {
+    font-size: var(--fs-3xl);
+    font-stretch: 115%;
+    letter-spacing: -.04em;
+    line-height: .98;
+    max-width: 12ch;
+}
+
+/* Botão circular magnético */
+.orb {
+    position: relative;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .75rem;
+    width: clamp(10rem, 7rem + 8vw, 14rem);
+    aspect-ratio: 1;
+    padding: 1.5rem;
+    border-radius: 50%;
+    background: var(--signal);
+    color: var(--granite);
+    font-weight: 600;
+    font-size: var(--fs-sm);
+    font-stretch: 108%;
+    line-height: 1.25;
+    text-align: center;
+    transition: background-color .4s var(--ease);
+    will-change: transform;
+}
+
+.orb svg {
+    width: 1.75rem;
+    height: 1.75rem;
+    transition: transform .6s var(--ease);
+}
+
+.orb::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: 50%;
+    border: 1px solid var(--signal);
+    transition: transform .8s var(--ease), opacity .8s var(--ease);
+}
+
+.orb:hover {
+    background: var(--signal-hover);
+}
+
+.orb:hover svg {
+    transform: rotate(-14deg) scale(1.1);
+}
+
+.orb:hover::after {
+    transform: scale(1.18);
+    opacity: 0;
+}
+
+.bottom {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 3rem;
+    margin-top: clamp(3rem, 2rem + 5vw, 7rem);
+    padding-top: 2rem;
+    border-top: 1px solid var(--line-dark);
+}
+
+.text {
+    max-width: 40ch;
+    color: var(--slate-light);
+}
+
+.details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    gap: 2rem;
+}
+
+.detail dt {
+    font-size: var(--fs-xs);
+    color: var(--slate-light);
+}
+
+.detail dd {
+    margin-top: .35rem;
+    font-weight: 500;
+}
+
+.detail a {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size .5s var(--ease);
+}
+
+.detail a:hover {
+    background-size: 100% 1px;
+}
+
+.mobileCta {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .orb {
+        display: none;
+    }
+
+    .bottom {
+        grid-template-columns: 1fr;
+    }
+
+    .mobileCta {
+        display: block;
+    }
+}
+
+@media (max-width: 520px) {
+    .mobileCta a {
+        width: 100%;
+    }
+}

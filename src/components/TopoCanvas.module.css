@@ -1,0 +1,66 @@
+.wrap {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.canvas {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    animation: appear 2.4s .3s var(--ease) forwards;
+}
+
+/* Marcador do cume */
+.summit {
+    position: absolute;
+    width: .75rem;
+    height: .75rem;
+    margin: -.375rem 0 0 -.375rem;
+    border-radius: 50%;
+    background: var(--signal);
+    opacity: 0;
+    animation: appear .8s 1.6s var(--ease) forwards;
+}
+
+.summit::before,
+.summit::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid var(--signal);
+    animation: ping 3.6s 2.2s var(--ease) infinite;
+}
+
+.summit::after {
+    animation-delay: 4s;
+}
+
+.flag {
+    position: absolute;
+    left: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    padding-left: .75rem;
+    font-size: var(--fs-xs);
+    font-weight: 500;
+    color: var(--mist);
+    white-space: nowrap;
+    border-left: 1px solid rgba(238, 242, 243, .3);
+}
+
+@keyframes appear {
+    to { opacity: 1; }
+}
+
+@keyframes ping {
+    0% { transform: scale(1); opacity: .8; }
+    80%, 100% { transform: scale(5); opacity: 0; }
+}
+
+@media (max-width: 700px) {
+    .flag {
+        display: none;
+    }
+}

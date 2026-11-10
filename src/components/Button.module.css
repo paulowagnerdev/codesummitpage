@@ -1,0 +1,91 @@
+.btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .625rem;
+    height: 3.25rem;
+    padding: 0 1.5rem;
+    border-radius: 99rem;
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    font-stretch: 108%;
+    white-space: nowrap;
+    border: 1px solid transparent;
+    transition:
+        background-color .35s var(--ease),
+        border-color .35s var(--ease),
+        color .35s var(--ease),
+        transform .2s var(--ease);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn:active {
+    transform: scale(.97);
+}
+
+.label {
+    position: relative;
+    display: grid;
+    overflow: hidden;
+    height: 1.3em;
+    line-height: 1.3;
+}
+
+.text {
+    grid-area: 1 / 1;
+    transition: transform .5s var(--ease);
+}
+
+.text + .text {
+    transform: translateY(105%);
+}
+
+.btn:hover .text:first-child,
+.btn:focus-visible .text:first-child {
+    transform: translateY(-105%);
+}
+
+.btn:hover .text + .text,
+.btn:focus-visible .text + .text {
+    transform: none;
+}
+
+.icon {
+    display: inline-flex;
+    width: 1.15rem;
+    height: 1.15rem;
+    transition: transform .5s var(--ease);
+}
+
+.btn:hover .icon {
+    transform: rotate(-12deg) scale(1.08);
+}
+
+.primary {
+    background: var(--signal);
+    color: var(--granite);
+}
+
+.primary:hover {
+    background: var(--signal-hover);
+}
+
+.ghost {
+    color: var(--granite);
+    border-color: var(--line);
+}
+
+.ghost:hover {
+    border-color: var(--granite);
+}
+
+.ghost-dark {
+    color: var(--mist);
+    border-color: var(--line-dark);
+}
+
+.ghost-dark:hover {
+    border-color: var(--mist);
+    background: rgba(238, 242, 243, .04);
+}

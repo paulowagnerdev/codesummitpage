@@ -1,0 +1,105 @@
+.hero {
+    position: relative;
+    isolation: isolate;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    align-items: flex-end;
+    background: var(--granite);
+    color: var(--mist);
+    overflow: hidden;
+}
+
+/* Escurece levemente o canto do texto para manter a leitura */
+.shade {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(70% 60% at 10% 100%, rgba(15, 27, 36, .92), transparent 70%),
+        linear-gradient(to top, rgba(15, 27, 36, .85), transparent 45%);
+}
+
+.content {
+    position: relative;
+    z-index: 1;
+    padding-top: calc(var(--header-h) + 6rem);
+    padding-bottom: clamp(2.5rem, 1.5rem + 4vw, 5rem);
+    pointer-events: none;
+}
+
+.content a {
+    pointer-events: auto;
+}
+
+.title {
+    font-size: var(--fs-hero);
+    font-weight: 600;
+    font-stretch: 112%;
+    line-height: .98;
+    letter-spacing: -.04em;
+}
+
+/* Revelação linha a linha por máscara */
+.line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: .08em;
+    margin-bottom: -.08em;
+}
+
+.line > span {
+    display: block;
+    transform: translateY(105%);
+    animation: lineUp 1.2s var(--ease) forwards;
+    animation-delay: calc(.15s + var(--i) * .1s);
+}
+
+.bottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2.5rem;
+    margin-top: clamp(2rem, 1rem + 3vw, 3.5rem);
+    padding-top: clamp(1.5rem, 1rem + 1.5vw, 2rem);
+    border-top: 1px solid var(--line-dark);
+    opacity: 0;
+    animation: fadeUp 1.2s .6s var(--ease) forwards;
+}
+
+.lead {
+    max-width: 44ch;
+    color: var(--slate-light);
+    font-size: clamp(1rem, .95rem + .25vw, 1.125rem);
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+    flex-shrink: 0;
+}
+
+@keyframes lineUp {
+    to { transform: none; }
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(1rem); }
+    to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 900px) {
+    .bottom {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 520px) {
+    .actions,
+    .actions a {
+        width: 100%;
+    }
+}

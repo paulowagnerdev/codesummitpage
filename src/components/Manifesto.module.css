@@ -1,0 +1,23 @@
+.section {
+    padding-block: var(--section-y);
+}
+
+.text {
+    max-width: 30ch;
+    font-size: var(--fs-2xl);
+    font-weight: 500;
+    font-stretch: 112%;
+    line-height: 1.16;
+    letter-spacing: -.025em;
+}
+
+.word {
+    opacity: clamp(.16, calc(((var(--progress, 1) - .18) / .38 - var(--w)) * 9), 1);
+    transition: opacity .15s linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .word {
+        opacity: 1;
+    }
+}
