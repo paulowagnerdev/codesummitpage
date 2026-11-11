@@ -23,9 +23,9 @@ export const company = {
         email: null, // ex.: "contato@codesummit.com.br"
     },
     social: [
-        { label: "GitHub", href: "https://github.com/maikerahw" },
+        // TODO: preencher o link do Instagram (ex.: "https://instagram.com/codesummit")
+        { label: "Instagram", href: "", display: "Seguir no Instagram" },
         // { label: "LinkedIn", href: "" },
-        // { label: "Instagram", href: "" },
     ],
 };
 

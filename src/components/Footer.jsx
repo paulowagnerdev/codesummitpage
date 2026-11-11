@@ -36,9 +36,15 @@ export function Footer() {
                     <h2>Contato</h2>
                     <ul>
                         <li><a href={whatsappLink()} target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
-                        <li><a href={company.contact.phoneHref}>{company.contact.phoneDisplay}</a></li>
                         {company.social.map((s) => (
-                            <li key={s.label}><a href={s.href} target="_blank" rel="noopener noreferrer">{s.label}</a></li>
+                            <li key={s.label}>
+                                <a
+                                    href={s.href || "#"}
+                                    {...(s.href ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                                >
+                                    {s.label}
+                                </a>
+                            </li>
                         ))}
                         <li><span>{company.contact.city}</span></li>
                     </ul>

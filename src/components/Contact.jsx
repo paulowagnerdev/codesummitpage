@@ -33,14 +33,10 @@ export function Contact() {
                 <div className={styles.bottom}>
                     <Reveal as="p" className={styles.text}>
                         Conte sobre o seu projeto e descubra como podemos transformar a sua ideia em uma solução de
-                        sucesso. Respondemos pelo WhatsApp ou por telefone.
+                        sucesso. Respondemos pelo WhatsApp.
                     </Reveal>
 
                     <dl className={styles.details}>
-                        <Reveal className={styles.detail}>
-                            <dt>WhatsApp e telefone</dt>
-                            <dd><a href={contact.phoneHref}>{contact.phoneDisplay}</a></dd>
-                        </Reveal>
                         {contact.email && (
                             <Reveal className={styles.detail}>
                                 <dt>E-mail</dt>
@@ -55,8 +51,11 @@ export function Contact() {
                             <Reveal key={s.label} delay={0.12 + i * 0.06} className={styles.detail}>
                                 <dt>{s.label}</dt>
                                 <dd>
-                                    <a href={s.href} target="_blank" rel="noopener noreferrer">
-                                        {s.href.replace(/^https?:\/\//, "")}
+                                    <a
+                                        href={s.href || "#"}
+                                        {...(s.href ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                                    >
+                                        {s.display || s.href.replace(/^https?:\/\//, "")}
                                     </a>
                                 </dd>
                             </Reveal>

@@ -41,14 +41,14 @@ function makeNoise(seed = 7) {
 
 const LEVELS = 16;
 
-export function TopoCanvas({ reduced = false, summit = { x: 0.72, y: 0.42 } }) {
+export function TopoCanvas({ reduced = false, summit = { x: 0.72, y: 0.42 }, seed = 11, flag = "Cume", className = "" }) {
     const canvasRef = useRef(null);
     const markerRef = useRef(null);
 
     useEffect(() => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext("2d");
-        const noise = makeNoise(11);
+        const noise = makeNoise(seed);
 
         let w = 0, h = 0, dpr = 1;
         let cols = 0, rows = 0, cell = 0;
@@ -226,17 +226,17 @@ export function TopoCanvas({ reduced = false, summit = { x: 0.72, y: 0.42 } }) {
             document.removeEventListener("visibilitychange", onVisibility);
             window.removeEventListener("pointermove", onPointer);
         };
-    }, [reduced, summit.x, summit.y]);
+    }, [reduced, summit.x, summit.y, seed]);
 
     return (
-        <div className={styles.wrap} aria-hidden="true">
+        <div className={`${styles.wrap} ${className}`} aria-hidden="true">
             <canvas ref={canvasRef} className={styles.canvas} />
             <span
                 ref={markerRef}
                 className={styles.summit}
                 style={{ left: `${summit.x * 100}%`, top: `${summit.y * 100}%` }}
             >
-                <span className={styles.flag}>Cume</span>
+                {flag && <span className={styles.flag}>{flag}</span>}
             </span>
         </div>
     );
