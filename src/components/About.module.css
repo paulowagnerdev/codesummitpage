@@ -9,13 +9,16 @@
     align-items: center;
 }
 
-/* Imagem: revela de baixo para cima e desliza levemente com a rolagem */
+/* Painel visual: relevo vivo + cartões em vidro */
 .media {
     position: relative;
     aspect-ratio: 4 / 5;
     border-radius: var(--radius);
     overflow: hidden;
-    background: var(--granite);
+    isolation: isolate;
+    background:
+        radial-gradient(120% 80% at 62% 30%, var(--granite-3), var(--granite) 70%);
+    color: var(--mist);
     clip-path: inset(100% 0 0 0 round var(--radius));
     transition: clip-path 1.4s var(--ease-in-out);
 }
@@ -24,13 +27,214 @@
     clip-path: inset(0 0 0 0 round var(--radius));
 }
 
-.media img {
-    width: 100%;
-    height: 118%;
-    object-fit: cover;
-    object-position: 28% center;
-    transform: translate3d(0, calc((var(--progress, .5) - .5) * -14%), 0) scale(1.06);
-    will-change: transform;
+.topo {
+    z-index: 0;
+}
+
+/* Brilho quente atrás do cume */
+.glow {
+    position: absolute;
+    left: 62%;
+    top: 36%;
+    width: 60%;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(255, 79, 23, .16), transparent);
+    filter: blur(10px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.meta,
+.scale,
+.code,
+.people {
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(1rem);
+    transition: opacity 1s var(--ease), transform 1s var(--ease);
+}
+
+.shown .meta,
+.shown .scale,
+.shown .code,
+.shown .people {
+    opacity: 1;
+    transform: none;
+}
+
+.shown .meta { transition-delay: .9s; }
+.shown .scale { transition-delay: 1s; }
+.shown .code { transition-delay: 1.15s; }
+.shown .people { transition-delay: 1.35s; }
+
+.meta {
+    top: 1.5rem;
+    left: 1.5rem;
+    right: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: .6875rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--slate-light);
+}
+
+/* Régua de altitude */
+.scale {
+    top: 22%;
+    bottom: 34%;
+    right: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-right: .6rem;
+    border-right: 1px solid rgba(159, 211, 230, .25);
+    font-size: .625rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--slate-light);
+}
+
+.scale span {
+    position: relative;
+}
+
+.scale span::after {
+    content: "";
+    position: absolute;
+    right: -.6rem;
+    top: 50%;
+    width: .35rem;
+    border-top: 1px solid rgba(159, 211, 230, .5);
+}
+
+/* Cartão de código em vidro */
+.code {
+    left: 1.5rem;
+    bottom: 1.5rem;
+    width: min(20rem, calc(100% - 3rem));
+    border-radius: .9rem;
+    background: rgba(23, 38, 50, .55);
+    border: 1px solid rgba(238, 242, 243, .12);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    box-shadow: 0 24px 60px -20px rgba(0, 0, 0, .6);
+    overflow: hidden;
+}
+
+.codeBar {
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+    padding: .65rem .9rem;
+    border-bottom: 1px solid rgba(238, 242, 243, .08);
+    font-size: .6875rem;
+    color: var(--slate-light);
+}
+
+.codeBar i {
+    width: .45rem;
+    height: .45rem;
+    border-radius: 50%;
+    background: rgba(238, 242, 243, .18);
+}
+
+.codeBar i:first-child {
+    background: var(--signal);
+}
+
+.codeBar span {
+    margin-left: .4rem;
+}
+
+.code pre {
+    margin: 0;
+    padding: .9rem 1rem 1.05rem;
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
+    font-size: .78rem;
+    line-height: 1.7;
+    color: var(--mist);
+    white-space: pre;
+    overflow: hidden;
+}
+
+.k { color: var(--glacier); }
+.f { color: var(--signal-hover); }
+.s { color: #c9e6a6; }
+
+.caret {
+    display: inline-block;
+    width: .5em;
+    height: 1.05em;
+    margin-left: .15em;
+    vertical-align: text-bottom;
+    background: var(--signal);
+    animation: blink 1.1s steps(1) infinite;
+}
+
+/* Selo “pessoas” */
+.people {
+    right: 1.5rem;
+    bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .55rem .9rem .55rem .55rem;
+    border-radius: 999px;
+    background: rgba(238, 242, 243, .92);
+    color: var(--granite);
+    box-shadow: 0 18px 40px -16px rgba(0, 0, 0, .55);
+}
+
+.avatars {
+    display: flex;
+}
+
+.avatars span {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    margin-left: -.5rem;
+    border-radius: 50%;
+    border: 2px solid var(--mist);
+    background: var(--granite);
+    color: var(--mist);
+    font-size: .625rem;
+    font-weight: 600;
+}
+
+.avatars span:first-child {
+    margin-left: 0;
+    background: var(--signal);
+    color: var(--granite);
+}
+
+.avatars span:last-child {
+    background: var(--glacier);
+    color: var(--granite);
+}
+
+.people p {
+    display: grid;
+    line-height: 1.2;
+    font-size: .75rem;
+}
+
+.people strong {
+    font-weight: 600;
+    font-stretch: 112%;
+}
+
+.people p span {
+    color: var(--slate);
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
 }
 
 .title {
@@ -84,6 +288,23 @@
     }
 }
 
+@media (max-width: 640px) {
+    .media {
+        aspect-ratio: 4 / 5;
+    }
+
+    .scale {
+        display: none;
+    }
+
+    .people {
+        top: 3.5rem;
+        bottom: auto;
+        right: auto;
+        left: 1.5rem;
+    }
+}
+
 @media (max-width: 520px) {
     .value {
         grid-template-columns: 1fr;
@@ -96,8 +317,16 @@
         clip-path: none;
     }
 
-    .media img {
-        height: 100%;
+    .meta,
+    .scale,
+    .code,
+    .people {
+        opacity: 1;
         transform: none;
+        transition: none;
+    }
+
+    .caret {
+        animation: none;
     }
 }
