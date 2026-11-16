@@ -24,10 +24,8 @@
 }
 
 .word {
+    font-family: "Orbitron", sans-serif;
     font-stretch: 125%;
-    font-weight: 700;
-    font-size: 1rem;
-    letter-spacing: -.01em;
-    line-height: 1;
+    font-size: 1.4rem;
     white-space: nowrap;
 }
